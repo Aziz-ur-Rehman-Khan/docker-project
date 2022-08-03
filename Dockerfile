@@ -1,17 +1,17 @@
-FROM ruby:2.7.1
+FROM ruby:2.7.1-alpine
+# ruby-dev
 
-#RUN apt-get update && apt-get upgrade -y nodejs
-# RUN apt-get install --no-cache add ruby-dev ruby-bundler ruby-json ruby-rake bash
-
+RUN apk add --update build-base nodejs tzdata  postgresql-dev
 RUN mkdir -p /dockerails
 
 COPY . /dockerails
 COPY ./Gemfile dockerails/Gemfile
 COPY ./Gemfile.lock dockerails/Gemfile.lock
+COPY ./entrypoint.sh /usr/bin/entrypoint.sh
 
 WORKDIR /dockerails
-
-
+RUN chmod +x /usr/bin/entrypoint.sh
 RUN bundle install
 EXPOSE 3000
-CMD ["bash"]
+ENTRYPOINT ["entrypoint.sh"]
+
