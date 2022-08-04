@@ -38,12 +38,13 @@ jobs:
           bundle install
          
         # Add or replace database setup steps here
-      - name: Set up database schema
-        run: |
-          bin/rails db:migrate
-          bin/rails db:schema:load
+      - name: migrate database
+        run: bin/rails db:migrate
+        
+      - name: Set up rails server
+          bin/rails server
         # Add or replace test runners here
       - name: Run tests
-        run: bin/rake
+        run: bin/bundle exec rspec
 
 
