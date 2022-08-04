@@ -45,7 +45,7 @@ jobs:
           bin/rails server
         # Add or replace test runners here
       - name: Run tests
-        run: /
+        run: |
           bin/bundle exec rspec
           bin/rake
         
