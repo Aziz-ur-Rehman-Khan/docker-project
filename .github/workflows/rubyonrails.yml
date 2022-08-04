@@ -18,7 +18,9 @@ jobs:
         image: postgres
         ports:
           - "5432:5432"
-       
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/"  
            
     steps:
       - name: Checkout code
@@ -35,14 +37,18 @@ jobs:
       - name: Build and test with Rake
         env:
           POSTGRES_PASSWORD: postgres
-          PGHOST: 127.0.0.1
+          PGHOST: 0.0.0.0
           PGUSER: postgres
           RAILS_ENV: test
         run: |
-          sudo apt-get -yqq install libpq-dev
           gem install bundler
           bundle install --jobs 4 --retry 3
-          bundle exec rails db:create
-          bundle exec rails db:migrate
-          bundle exec rails test
+         
+        # Add or replace database setup steps here
+        #- name: Set up database schema
+        #  run: bin/rails db:schema:load
+        # Add or replace test runners here
+      - name: Run tests
+        run: bin/rake
+
 
