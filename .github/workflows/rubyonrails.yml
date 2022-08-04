@@ -21,7 +21,7 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
     env:
-      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/"  
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/postgres"  
       
            
     steps:
@@ -40,7 +40,7 @@ jobs:
         # Add or replace database setup steps here
       - name: Set up database schema
         run: |
-          bin/rails db:setup
+          bin/rails db:migrate
           bin/rails db:schema:load
         # Add or replace test runners here
       - name: Run tests
