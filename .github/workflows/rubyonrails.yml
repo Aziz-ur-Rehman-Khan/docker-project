@@ -21,10 +21,10 @@ jobs:
         env:
           POSTGRES_PASSWORD: ${{secrets.PASSWORD}}
           POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-          POSTGRES_DB: oms_api_test
+          POSTGRES_DB: postgres
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/oms_api_test"  
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/postgres"  
       
     steps:
       - name: Checkout code
