@@ -40,10 +40,14 @@ jobs:
           bundle install
          
         # Add or replace database setup steps here
+      - name: create database
+        run: |
+          RAILS_ENV=test bundle exec rake db:create
+          
       
       - name: migrate database
         run: |
-          bin/rails db:migrate
+          RAILS_ENV=test bundle exec rake db:migrate
           
       - name: seeded database
         run: |
@@ -52,7 +56,7 @@ jobs:
         # Add or replace test runners here
       - name: Run tests
         run: |
-          bin/rake
+          RAILS_ENV=test bundle exec rake
         
 
 
