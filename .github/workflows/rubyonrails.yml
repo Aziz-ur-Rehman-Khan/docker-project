@@ -38,6 +38,7 @@ jobs:
 
       - name: Install Gems
         run: |
+          gem install bundler:2.2.26
           bundle install
          
         # Add or replace database setup steps here
