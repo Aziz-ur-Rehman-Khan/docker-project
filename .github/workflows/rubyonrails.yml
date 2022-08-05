@@ -41,7 +41,6 @@ jobs:
           bundle install
          
         # Add or replace database setup steps here
-        
       
       - name: migrate database
         run: |
