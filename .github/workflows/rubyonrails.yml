@@ -41,12 +41,17 @@ jobs:
           bundle install
          
         # Add or replace database setup steps here
-      - name: seeded database
+      - name: create database
         run: |
-          bin/rails db:seed
+          bin/rails db:create
+      
       - name: migrate database
         run: |
           bin/rails db:migrate
+          
+      - name: seeded database
+        run: |
+          bin/rails db:seed
         
         # Add or replace test runners here
       - name: Run tests
