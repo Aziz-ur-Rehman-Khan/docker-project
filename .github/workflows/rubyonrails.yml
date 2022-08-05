@@ -41,9 +41,7 @@ jobs:
           bundle install
          
         # Add or replace database setup steps here
-      - name: create database
-        run: |
-          bin/rails db:create
+        
       
       - name: migrate database
         run: |
