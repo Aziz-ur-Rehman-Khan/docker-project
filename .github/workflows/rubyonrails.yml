@@ -54,7 +54,7 @@ jobs:
         # Add or replace test runners here
       - name: Run tests
         run: |
-          bin/rake RAILS_ENV=test
+          rake db:migrate:reset db:seed
         
 
 
