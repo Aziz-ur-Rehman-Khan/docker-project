@@ -24,7 +24,7 @@ jobs:
           POSTGRES_DB: oms_api_test
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://postgres:postgres@localhost:5444/oms_api_test"  
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/oms_api_test"  
       
     steps:
       - name: Checkout code
