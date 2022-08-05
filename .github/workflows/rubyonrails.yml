@@ -19,13 +19,14 @@ jobs:
         ports:
           - "5432:5432"
         env:
-          POSTGRES_PASSWORD: ${{secrets.PASSWORD}}
-          POSTGRES_USER: ${{secrets.POSTGRES_USER}}
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
           POSTGRES_DB: oms_api_test
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost:5432/oms_api_test"  
       
+           
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -40,23 +41,15 @@ jobs:
           bundle install
          
         # Add or replace database setup steps here
-      - name: create database
-        run: |
-          RAILS_ENV=test bundle exec rake db:create
-          
-      
       - name: migrate database
         run: |
-          RAILS_ENV=test bundle exec rake db:migrate
-          
-      - name: seeded database
-        run: |
-          bin/rails db:seed
+          bin/rails db:migrate
         
         # Add or replace test runners here
       - name: Run tests
         run: |
-          RAILS_ENV=test bundle exec rake
+          bin/bundle exec rspec
+          bin/rake
         
 
 
