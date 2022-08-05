@@ -43,6 +43,7 @@ jobs:
         # Add or replace database setup steps here
       - name: migrate database
         run: |
+          bin/rails db:seed
           bin/rails db:migrate
         
         # Add or replace test runners here
