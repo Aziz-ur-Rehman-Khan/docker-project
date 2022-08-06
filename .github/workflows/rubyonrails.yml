@@ -43,10 +43,10 @@ jobs:
         # Add or replace database setup steps here
       - name: database recreate
         run: |
-          cp config/database.ci.yml config/database.yml
           RAILS_ENV=test rake db:drop db:create db:migrate
+          
       - name: Run tests
-        run: rspec 
+        run: RAILS_ENV=test rspec 
            
       - name: Build and Push Image to Dockerhub
         uses: mr-smithers-excellent/docker-build-push@v5
