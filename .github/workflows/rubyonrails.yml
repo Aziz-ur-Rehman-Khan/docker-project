@@ -41,21 +41,9 @@ jobs:
           bundle install
          
         # Add or replace database setup steps here
-      - name: migrate database
-        run: |
-          bin/rails db:create RAILS_ENV=test
-      - name: migrate database
-        run: |
-          bin/rails db:migrate RAILS_ENV=test
-      - name: seed database
-        run: |
-          bin/rails db:seed RAILS_ENV=test
-        
-        # Add or replace test runners here
       - name: Run tests
         run: |
-          RAILS_ENV=test rake db:migrate:reset db:seed
-          RAILS_ENV=test bundle exec rspec
+          RAILS_ENV=test rake test:prepare && bundle exec rspec
           
       - name: Build and Push Image to Dockerhub
         uses: mr-smithers-excellent/docker-build-push@v5
