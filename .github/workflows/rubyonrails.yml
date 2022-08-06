@@ -43,7 +43,7 @@ jobs:
         # Add or replace database setup steps here
       - name: Run tests
         run: |
-          RAILS_ENV=test rake test:prepare && bundle exec rspec
+          RAILS_ENV=test rake test:prepare:reset && bundle exec rspec
           
       - name: Build and Push Image to Dockerhub
         uses: mr-smithers-excellent/docker-build-push@v5
