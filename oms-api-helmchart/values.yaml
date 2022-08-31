@@ -1,0 +1,73 @@
+# Default values for oms-api-helmchart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: azizurehmankhan/postgres-test-app
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: "oms-api"
+fullnameOverride: "oms-api-deployment"
+
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: NodePort
+  port: 3000
+  targetPort: 3000
+  nodePort: 30003
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+components:
+  rails:
+    name: "web"
+    nodePort: 30006
+    containerPort: 3000
+    containerPath: /home/app
+    dataPath: "/data"
+    image:
+        imageName: "azizurehmankhan/postgres-test-app"
+        tag: latest
+  postgres:
+    name: postgres
+    containerPort: 5432
+    containerPath: /var/lib/postgresql/data
+    dataPath: "/postgres-data"
+    image:
+        imageName: "postgres"
+        tag: "latest"
+    env: true

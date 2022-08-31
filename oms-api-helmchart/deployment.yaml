@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oms-api-deployment
+  labels:
+    app: oms-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oms-api
+  template:
+    metadata:
+      labels:
+        app: oms-api
+    spec:
+      containers:
+      - name: web
+        image: azizurehmankhan/postgres-test-app:latest
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - mountPath: /practice-test-docker
+          name: test-volume
+
+      - name: postgres
+        image: postgres
+        env:
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: postgress-pv-storage
+
+      volumes:
+      - name: test-volume
+        hostPath:
+          path: /home/dev/Desktop/test-docker/data
+
+      - name: postgress-pv-storage
+        persistentVolumeClaim:
+          claimName: postgress-pvc
